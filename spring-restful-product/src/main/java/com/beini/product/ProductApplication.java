@@ -1,4 +1,4 @@
-package com.beini.springrestfulproduct;
+package com.beini.product;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,9 +12,9 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableFeignClients
 /*1.Hystrix的启用（必须）*/
 @EnableCircuitBreaker
-public class SpringRestfulProductApplication {
+public class ProductApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringRestfulProductApplication.class, args);
+		SpringApplication.run(ProductApplication.class, args);
 	}
 }

@@ -1,11 +1,11 @@
-package com.beini.springrestfulproduct.controller;
+package com.beini.product.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.beini.springrestfulproduct.feignClient.AuthorizationFeignClient;
+import com.beini.product.feignClient.AuthorizationFeignClient;
 
 @RestController
 @RequestMapping("/product")
