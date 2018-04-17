@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-/*1.feign的启用（必须）*/
+/*1.feign的启用（必须）,feign默认是启用hystrix*/
 @EnableFeignClients
 /*1.Hystrix的启用（必须）*/
 @EnableCircuitBreaker
