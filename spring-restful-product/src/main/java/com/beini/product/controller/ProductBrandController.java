@@ -15,72 +15,61 @@ import org.springframework.web.bind.annotation.RestController;
 import com.beini.core.enums.ResultEnum;
 import com.beini.core.utils.ResultVOUtil;
 import com.beini.core.vo.ResultVO;
-import com.beini.product.entity.Product;
-import com.beini.product.feignClient.AuthorizationFeignClient;
-import com.beini.product.service.ProductService;
+import com.beini.product.entity.ProductBrand;
+import com.beini.product.service.ProductBrandService;
 
-import lombok.extern.slf4j.Slf4j;
+import io.swagger.annotations.ApiOperation;
+
 
 @RestController
-@RequestMapping("/product/product/")
 @SuppressWarnings("rawtypes")
-@Slf4j
-public class ProductController {
+@RequestMapping("/product/brand/")
+public class ProductBrandController {
 	@Autowired
-	private AuthorizationFeignClient authorizationFeignClient;
-	@Autowired
-	private ProductService productService;
-
-	@GetMapping("/getOne")
-	public String getProduct(String uid) {
-		log.info("获取商品的 UID :" + uid);
-		String userInfo = authorizationFeignClient.getOne(uid);
-		log.info("userInfo : " + userInfo);
-		return userInfo;
-	}
-
+	private ProductBrandService productBrandService;
+	@ApiOperation(value="根据品牌ID获取品牌信息")
 	@GetMapping("{id}")
 	public ResultVO findById(@PathVariable("id") String id) {
-		Product product = productService.findById(id);
-		return ResultVOUtil.success(product);
+		ProductBrand productBrand = productBrandService.findById(id);
+		return ResultVOUtil.success(productBrand);
 	}
-
+	@ApiOperation(value="根据品牌分页信息获取品牌分页")
 	@GetMapping("")
 	public ResultVO findByPage(@RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
 		PageRequest request = new PageRequest(pageNo - 1, pageSize);
-		Page<Product> page = productService.findAll(request);
+		Page<ProductBrand> page = productBrandService.findAll(request);
 		return ResultVOUtil.success(page);
 	}
-
+	@ApiOperation(value="根据品牌信息更新")
 	@PutMapping
-	public ResultVO update(Product product) {
-		if (product == null || product.getPbUuid() == null || "".equals(product.getPbUuid())) {
-			return ResultVOUtil.error(ResultEnum.PRODUCT_NOT_EXIST);
+	public ResultVO update(ProductBrand productBrand) {
+		if (productBrand == null || productBrand.getPbUuid() == null || "".equals(productBrand.getPbUuid())) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_BRAND_NOT_EXIST);
 		}
-		if (productService.update(product) == null) {
-			return ResultVOUtil.error(ResultEnum.PRODUCT_UPDATE_FAIL);
+		if (productBrandService.update(productBrand) == null) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_BRAND_UPDATE_FAIL);
 		} else {
 			return ResultVOUtil.success();
 		}
 	}
-
+	@ApiOperation(value="新增品牌信息")
 	@PostMapping
-	public ResultVO save(Product product) {
-		if (productService.save(product) == null) {
-			return ResultVOUtil.error(ResultEnum.PRODUCT_INSERT_FAIL);
+	public ResultVO save(ProductBrand productBrand) {
+		if (productBrandService.save(productBrand) == null) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_BRAND_INSERT_FAIL);
 		} else {
 			return ResultVOUtil.success();
 		}
 	}
-
+	@ApiOperation(value="根据品牌ID删除品牌信息")
 	@DeleteMapping("{id}")
 	public ResultVO deleteById(@PathVariable("id") String id) {
 		try {
-			productService.delete(id);
+			productBrandService.delete(id);
 			return ResultVOUtil.success();
 		} catch (Exception e) {
-			return ResultVOUtil.error(ResultEnum.PRODUCT_DELETE_FAIL);
+			return ResultVOUtil.error(ResultEnum.PRODUCT_BRAND_DELETE_FAIL);
 		}
 	}
 }

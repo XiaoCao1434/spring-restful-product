@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.beini.core.enums.KeyPrefixEnum;
+import com.beini.core.utils.KeyUtil;
 import com.beini.product.entity.Product;
 import com.beini.product.repository.ProductRepository;
 import com.beini.product.service.ProductService;
@@ -24,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product save(Product bean) {
+		bean.setProUuid(KeyUtil.genUniqueKey(KeyPrefixEnum.PRODUCT));
 		return repository.save(bean);
 	}
 

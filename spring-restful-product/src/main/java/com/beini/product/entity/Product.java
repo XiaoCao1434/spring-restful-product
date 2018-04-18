@@ -8,6 +8,8 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Table;
 
+import io.swagger.annotations.ApiModel;
+
 /**
  * 商品表
  * 
@@ -15,6 +17,7 @@ import org.hibernate.annotations.Table;
  * @Date 2018-04-08 09:40
  * @Order 1
  */
+@ApiModel(value="商品表",description="商品信息")
 @Entity
 @Table(comment="商品表", appliesTo = "product")
 public class Product implements Serializable {
