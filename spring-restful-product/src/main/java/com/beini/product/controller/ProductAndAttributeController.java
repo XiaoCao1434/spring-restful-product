@@ -1,0 +1,74 @@
+package com.beini.product.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.beini.core.enums.ResultEnum;
+import com.beini.core.utils.ResultVOUtil;
+import com.beini.core.vo.ResultVO;
+import com.beini.product.entity.ProductAndAttribute;
+import com.beini.product.service.ProductAndAttributeService;
+
+import io.swagger.annotations.ApiOperation;
+
+@RestController
+@SuppressWarnings("rawtypes")
+@RequestMapping("/product/andAttribute/")
+public class ProductAndAttributeController {
+	@Autowired
+	private ProductAndAttributeService productAndAttributeService;
+	@ApiOperation(value="根据ID获取单个商品和属性关联对象信息")
+	@GetMapping("{id}")
+	public ResultVO findById(@PathVariable("id") Integer id) {
+		ProductAndAttribute productAndAttribute = productAndAttributeService.findById(id);
+		return ResultVOUtil.success(productAndAttribute);
+	}
+	@ApiOperation(value="根据分页信息获取商品和属性关联信息的分页")
+	@GetMapping("")
+	public ResultVO findByPage(@RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+		PageRequest request = new PageRequest(pageNo - 1, pageSize);
+		Page<ProductAndAttribute> page = productAndAttributeService.findAll(request);
+		return ResultVOUtil.success(page);
+	}
+	@ApiOperation(value="根据商品和属性关联信息进行更新")
+	@PutMapping
+	public ResultVO update(ProductAndAttribute productAndAttribute) {
+		if (productAndAttribute == null || productAndAttribute.getId() == null) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_AND_ATTRIBUTE_NOT_EXIST);
+		}
+		if (productAndAttributeService.update(productAndAttribute) == null) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_AND_ATTRIBUTE_UPDATE_FAIL);
+		} else {
+			return ResultVOUtil.success();
+		}
+	}
+	@ApiOperation(value="新增商品和属性关联信息")
+	@PostMapping
+	public ResultVO save(ProductAndAttribute productAndAttribute) {
+		if (productAndAttributeService.save(productAndAttribute) == null) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_AND_ATTRIBUTE_INSERT_FAIL);
+		} else {
+			return ResultVOUtil.success();
+		}
+	}
+	@ApiOperation(value="根据商品和属性关联ID进行删除")
+	@DeleteMapping("{id}")
+	public ResultVO deleteById(@PathVariable("id") Integer id) {
+		try {
+			productAndAttributeService.delete(id);
+			return ResultVOUtil.success();
+		} catch (Exception e) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_AND_ATTRIBUTE_DELETE_FAIL);
+		}
+	}
+}

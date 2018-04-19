@@ -9,6 +9,12 @@ import com.beini.product.entity.ProductAndAttribute;
 import com.beini.product.repository.ProductAndAttributeRepository;
 import com.beini.product.service.ProductAndAttributeService;
 
+/**
+ * 商品与属性关联信息服务实现类
+ * 
+ * @author lb_chen
+ * @date 2018-04-18 16:33
+ */
 @Service
 public class ProductAndAttributeServiceImpl implements ProductAndAttributeService {
 	@Autowired
@@ -37,10 +43,10 @@ public class ProductAndAttributeServiceImpl implements ProductAndAttributeServic
 	@Override
 	public void delete(Integer... id) {
 		try {
-			for(Integer key:id) {
+			for (Integer key : id) {
 				repository.delete(key);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
