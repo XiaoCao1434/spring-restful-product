@@ -30,12 +30,23 @@ import io.swagger.annotations.ApiOperation;
 public class ProductController {
 	@Autowired
 	private ProductService productService;
+	/**
+	 * 根据商品ID获取商品信息
+	 * @param id 商品ID
+	 * @return 商品信息
+	 */
 	@ApiOperation(value="根据商品ID获取商品信息")
 	@GetMapping("{id}")
 	public ResultVO findById(@PathVariable(value = "id") String id) {
 		Product product = productService.findById(id);
 		return ResultVOUtil.success(product);
 	}
+	/**
+	 * 根据分页信息获取商品分页信息
+	 * @param pageNo 第几页
+	 * @param pageSize 每页条数
+	 * @return 商品分页信息
+	 */
 	@ApiOperation(value="根据分页信息获取商品分页信息")
 	@GetMapping("")
 	public ResultVO findByPage(@RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
