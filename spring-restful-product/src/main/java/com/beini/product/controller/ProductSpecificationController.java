@@ -20,7 +20,10 @@ import com.beini.product.service.ProductSpecificationService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-
+/**
+ * 商品规格信息控制器
+ * @author lb_chen
+ */
 @Api(value = "商品规格信息")
 @RestController
 @RequestMapping("/product/specification/")

@@ -21,6 +21,11 @@ import com.beini.product.service.ProductAndAttributeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * 商品和属性关联信息控制器
+ * 
+ * @author lb_chen
+ */
 @Api(value = "商品和属性关联信息")
 @RestController
 @SuppressWarnings("rawtypes")

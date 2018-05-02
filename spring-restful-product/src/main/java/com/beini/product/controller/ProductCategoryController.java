@@ -20,6 +20,10 @@ import com.beini.product.service.ProductCategoryService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+/**
+ * 商品类别信息控制器
+ * @author lb_chen
+ */
 @Api(value="商品类别信息")
 @RestController
 @RequestMapping("/product/category/")

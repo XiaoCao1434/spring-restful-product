@@ -20,8 +20,10 @@ import com.beini.product.service.ProductService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 /**
  * 商品信息控制器
+ * 
  * @author lb_chen
  * @data 2018-04-18 16:15
  */
@@ -32,24 +34,31 @@ import io.swagger.annotations.ApiOperation;
 public class ProductController {
 	@Autowired
 	private ProductService productService;
+
 	/**
 	 * 根据商品ID获取商品信息
-	 * @param id 商品ID
+	 * 
+	 * @param id
+	 *            商品ID
 	 * @return 商品信息
 	 */
-	@ApiOperation(value="根据商品ID获取商品信息")
+	@ApiOperation(value = "根据商品ID获取商品信息")
 	@GetMapping("{id}")
 	public ResultVO findById(@PathVariable(value = "id") String id) {
 		Product product = productService.findById(id);
 		return ResultVOUtil.success(product);
 	}
+
 	/**
 	 * 根据分页信息获取商品分页信息
-	 * @param pageNo 第几页
-	 * @param pageSize 每页条数
+	 * 
+	 * @param pageNo
+	 *            第几页
+	 * @param pageSize
+	 *            每页条数
 	 * @return 商品分页信息
 	 */
-	@ApiOperation(value="根据分页信息获取商品分页信息")
+	@ApiOperation(value = "根据分页信息获取商品分页信息")
 	@GetMapping("")
 	public ResultVO findByPage(@RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -57,7 +66,8 @@ public class ProductController {
 		Page<Product> page = productService.findAll(request);
 		return ResultVOUtil.success(page);
 	}
-	@ApiOperation(value="根据商品信息进行数据更新(以主键为依据)")
+
+	@ApiOperation(value = "根据商品信息进行数据更新(以主键为依据)")
 	@PutMapping
 	public ResultVO update(Product product) {
 		if (product == null || product.getPbUuid() == null || "".equals(product.getPbUuid())) {
@@ -69,7 +79,8 @@ public class ProductController {
 			return ResultVOUtil.success();
 		}
 	}
-	@ApiOperation(value="增加商品信息")
+
+	@ApiOperation(value = "增加商品信息")
 	@PostMapping
 	public ResultVO save(Product product) {
 		if (productService.save(product) == null) {
@@ -78,9 +89,10 @@ public class ProductController {
 			return ResultVOUtil.success();
 		}
 	}
-	@ApiOperation(value="根据商品ID删除商品信息")
+
+	@ApiOperation(value = "根据商品ID删除商品信息")
 	@DeleteMapping("{id}")
-	public ResultVO deleteById(@PathVariable(value="id") String id) {
+	public ResultVO deleteById(@PathVariable(value = "id") String id) {
 		try {
 			productService.delete(id);
 			return ResultVOUtil.success();

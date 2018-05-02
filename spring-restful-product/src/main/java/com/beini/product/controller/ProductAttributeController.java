@@ -20,20 +20,28 @@ import com.beini.product.service.ProductAttributeService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-@Api(value="商品属性信息")
+
+/**
+ * 商品属性信息控制器
+ * 
+ * @author lb_chen
+ */
+@Api(value = "商品属性信息")
 @RestController
 @RequestMapping("/product/attribute/")
 @SuppressWarnings("rawtypes")
 public class ProductAttributeController {
 	@Autowired
 	private ProductAttributeService productAttributeService;
-	@ApiOperation(value="根据ID获取商品属性信息")
+
+	@ApiOperation(value = "根据ID获取商品属性信息")
 	@GetMapping("{id}")
 	public ResultVO findById(@PathVariable(value = "id") String id) {
 		ProductAttribute productAttribute = productAttributeService.findById(id);
 		return ResultVOUtil.success(productAttribute);
 	}
-	@ApiOperation(value="根据分页信息获取商品属性分页信息")
+
+	@ApiOperation(value = "根据分页信息获取商品属性分页信息")
 	@GetMapping("")
 	public ResultVO findByPage(@RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -41,10 +49,12 @@ public class ProductAttributeController {
 		Page<ProductAttribute> page = productAttributeService.findAll(request);
 		return ResultVOUtil.success(page);
 	}
-	@ApiOperation(value="根据商品属性信息进行数据更新(以主键为依据)")
+
+	@ApiOperation(value = "根据商品属性信息进行数据更新(以主键为依据)")
 	@PutMapping
 	public ResultVO update(ProductAttribute productAttribute) {
-		if (productAttribute == null || productAttribute.getPaUuid() == null || "".equals(productAttribute.getPaUuid())) {
+		if (productAttribute == null || productAttribute.getPaUuid() == null
+				|| "".equals(productAttribute.getPaUuid())) {
 			return ResultVOUtil.error(ResultEnum.PRODUCT_ATTRIBUTE_NOT_EXIST);
 		}
 		if (productAttributeService.update(productAttribute) == null) {
@@ -53,7 +63,8 @@ public class ProductAttributeController {
 			return ResultVOUtil.success();
 		}
 	}
-	@ApiOperation(value="增加商品属性信息")
+
+	@ApiOperation(value = "增加商品属性信息")
 	@PostMapping
 	public ResultVO save(ProductAttribute productAttribute) {
 		if (productAttributeService.save(productAttribute) == null) {
@@ -62,9 +73,10 @@ public class ProductAttributeController {
 			return ResultVOUtil.success();
 		}
 	}
-	@ApiOperation(value="根据商品属性ID删除")
+
+	@ApiOperation(value = "根据商品属性ID删除")
 	@DeleteMapping("{id}")
-	public ResultVO deleteById(@PathVariable(value="id") String id) {
+	public ResultVO deleteById(@PathVariable(value = "id") String id) {
 		try {
 			productAttributeService.delete(id);
 			return ResultVOUtil.success();

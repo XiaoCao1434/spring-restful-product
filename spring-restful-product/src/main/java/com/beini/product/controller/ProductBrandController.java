@@ -18,22 +18,30 @@ import com.beini.core.vo.ResultVO;
 import com.beini.product.entity.ProductBrand;
 import com.beini.product.service.ProductBrandService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-
+/**
+ * 商品品牌信息控制器
+ * 
+ * @author lb_chen
+ */
+@Api(value = "商品品牌信息")
 @RestController
 @SuppressWarnings("rawtypes")
 @RequestMapping("/product/brand/")
 public class ProductBrandController {
 	@Autowired
 	private ProductBrandService productBrandService;
-	@ApiOperation(value="根据品牌ID获取品牌信息")
+
+	@ApiOperation(value = "根据品牌ID获取品牌信息")
 	@GetMapping("{id}")
 	public ResultVO findById(@PathVariable("id") String id) {
 		ProductBrand productBrand = productBrandService.findById(id);
 		return ResultVOUtil.success(productBrand);
 	}
-	@ApiOperation(value="根据品牌分页信息获取品牌分页")
+
+	@ApiOperation(value = "根据品牌分页信息获取品牌分页")
 	@GetMapping("")
 	public ResultVO findByPage(@RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
@@ -41,7 +49,8 @@ public class ProductBrandController {
 		Page<ProductBrand> page = productBrandService.findAll(request);
 		return ResultVOUtil.success(page);
 	}
-	@ApiOperation(value="根据品牌信息更新")
+
+	@ApiOperation(value = "根据品牌信息更新")
 	@PutMapping
 	public ResultVO update(ProductBrand productBrand) {
 		if (productBrand == null || productBrand.getPbUuid() == null || "".equals(productBrand.getPbUuid())) {
@@ -53,7 +62,8 @@ public class ProductBrandController {
 			return ResultVOUtil.success();
 		}
 	}
-	@ApiOperation(value="新增品牌信息")
+
+	@ApiOperation(value = "新增品牌信息")
 	@PostMapping
 	public ResultVO save(ProductBrand productBrand) {
 		if (productBrandService.save(productBrand) == null) {
@@ -62,7 +72,8 @@ public class ProductBrandController {
 			return ResultVOUtil.success();
 		}
 	}
-	@ApiOperation(value="根据品牌ID删除品牌信息")
+
+	@ApiOperation(value = "根据品牌ID删除品牌信息")
 	@DeleteMapping("{id}")
 	public ResultVO deleteById(@PathVariable("id") String id) {
 		try {

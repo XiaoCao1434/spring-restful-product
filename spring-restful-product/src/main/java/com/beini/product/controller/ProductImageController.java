@@ -21,6 +21,11 @@ import com.beini.product.service.ProductImageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * 商品图片信息控制器
+ * 
+ * @author lb_chen
+ */
 @Api(value = "商品图片信息")
 @RestController
 @SuppressWarnings("rawtypes")
