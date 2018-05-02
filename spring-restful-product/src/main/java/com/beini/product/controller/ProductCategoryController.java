@@ -15,61 +15,61 @@ import org.springframework.web.bind.annotation.RestController;
 import com.beini.core.enums.ResultEnum;
 import com.beini.core.utils.ResultVOUtil;
 import com.beini.core.vo.ResultVO;
-import com.beini.product.entity.ProductAttribute;
-import com.beini.product.service.ProductAttributeService;
+import com.beini.product.entity.ProductCategory;
+import com.beini.product.service.ProductCategoryService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-@Api(value="商品属性信息")
+@Api(value="商品类别信息")
 @RestController
-@RequestMapping("/product/attribute/")
+@RequestMapping("/product/category/")
 @SuppressWarnings("rawtypes")
-public class ProductAttributeController {
+public class ProductCategoryController {
 	@Autowired
-	private ProductAttributeService productAttributeService;
-	@ApiOperation(value="根据ID获取商品属性信息")
+	private ProductCategoryService productCategoryService;
+	@ApiOperation(value="根据ID获取商品类别信息")
 	@GetMapping("{id}")
 	public ResultVO findById(@PathVariable(value = "id") String id) {
-		ProductAttribute productAttribute = productAttributeService.findById(id);
+		ProductCategory productAttribute = productCategoryService.findById(id);
 		return ResultVOUtil.success(productAttribute);
 	}
-	@ApiOperation(value="根据分页信息获取商品属性分页信息")
+	@ApiOperation(value="根据分页信息获取商品类别分页信息")
 	@GetMapping("")
 	public ResultVO findByPage(@RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
 		PageRequest request = new PageRequest(pageNo - 1, pageSize);
-		Page<ProductAttribute> page = productAttributeService.findAll(request);
+		Page<ProductCategory> page = productCategoryService.findAll(request);
 		return ResultVOUtil.success(page);
 	}
-	@ApiOperation(value="根据商品属性信息进行数据更新(以主键为依据)")
+	@ApiOperation(value="根据商品类别信息进行数据更新(以主键为依据)")
 	@PutMapping
-	public ResultVO update(ProductAttribute productAttribute) {
-		if (productAttribute == null || productAttribute.getPaUuid() == null || "".equals(productAttribute.getPaUuid())) {
-			return ResultVOUtil.error(ResultEnum.PRODUCT_ATTRIBUTE_NOT_EXIST);
+	public ResultVO update(ProductCategory productCategory) {
+		if (productCategory == null || productCategory.getPcUuid() == null || "".equals(productCategory.getPcUuid())) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_CATEGORY_NOT_EXIST);
 		}
-		if (productAttributeService.update(productAttribute) == null) {
-			return ResultVOUtil.error(ResultEnum.PRODUCT_ATTRIBUTE_UPDATE_FAIL);
+		if (productCategoryService.update(productCategory) == null) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_CATEGORY_UPDATE_FAIL);
 		} else {
 			return ResultVOUtil.success();
 		}
 	}
-	@ApiOperation(value="增加商品属性信息")
+	@ApiOperation(value="增加商品类别信息")
 	@PostMapping
-	public ResultVO save(ProductAttribute productAttribute) {
-		if (productAttributeService.save(productAttribute) == null) {
-			return ResultVOUtil.error(ResultEnum.PRODUCT_ATTRIBUTE_INSERT_FAIL);
+	public ResultVO save(ProductCategory productCategory) {
+		if (productCategoryService.save(productCategory) == null) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_CATEGORY_INSERT_FAIL);
 		} else {
 			return ResultVOUtil.success();
 		}
 	}
-	@ApiOperation(value="根据商品属性ID删除")
+	@ApiOperation(value="根据商品类别ID删除")
 	@DeleteMapping("{id}")
 	public ResultVO deleteById(@PathVariable(value="id") String id) {
 		try {
-			productAttributeService.delete(id);
+			productCategoryService.delete(id);
 			return ResultVOUtil.success();
 		} catch (Exception e) {
-			return ResultVOUtil.error(ResultEnum.PRODUCT_ATTRIBUTE_DELETE_FAIL);
+			return ResultVOUtil.error(ResultEnum.PRODUCT_CATEGORY_DELETE_FAIL);
 		}
 	}
 }

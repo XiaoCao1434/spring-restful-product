@@ -14,7 +14,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableFeignClients
 /*1.Hystrix的启用（必须）*/
 @EnableCircuitBreaker
-
 @EnableSwagger2
 public class ProductApplication {
 
