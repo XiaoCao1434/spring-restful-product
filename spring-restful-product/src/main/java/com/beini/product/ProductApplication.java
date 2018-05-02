@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /*1.feign的启用（必须）,feign默认是启用hystrix*/
 @EnableFeignClients
 /*1.Hystrix的启用（必须）*/
-@EnableCircuitBreaker
+/*@EnableCircuitBreaker*/
 @EnableSwagger2
 public class ProductApplication {
 
