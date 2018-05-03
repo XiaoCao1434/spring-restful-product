@@ -1,4 +1,4 @@
-package com.beini.springrestfulproduct;
+package com.beini.product;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SpringRestfulProductApplicationTests {
+public class ProductApplicationTests {
 
 	@Test
 	public void contextLoads() {

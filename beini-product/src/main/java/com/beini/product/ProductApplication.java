@@ -14,6 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /*1.Hystrix的启用（必须）*/
 /*@EnableCircuitBreaker*/
 @EnableSwagger2
+//@MapperScan("com.beini.product.mapper")
 public class ProductApplication {
 
 	public static void main(String[] args) {
