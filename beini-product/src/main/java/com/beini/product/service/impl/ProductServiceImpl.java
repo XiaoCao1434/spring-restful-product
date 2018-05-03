@@ -45,4 +45,9 @@ public class ProductServiceImpl implements ProductService {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public Integer updateStock(Product product) {
+		return repository.updateStock(product.getProUuid(),product.getStock());
+	}
 }

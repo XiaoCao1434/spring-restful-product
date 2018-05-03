@@ -70,11 +70,27 @@ public class ProductController {
 	@ApiOperation(value = "根据商品信息进行数据更新(以主键为依据)")
 	@PutMapping
 	public ResultVO update(Product product) {
-		if (product == null || product.getPbUuid() == null || "".equals(product.getPbUuid())) {
+		if (product == null || product.getProUuid() == null || "".equals(product.getProUuid())) {
 			return ResultVOUtil.error(ResultEnum.PRODUCT_NOT_EXIST);
 		}
 		if (productService.update(product) == null) {
 			return ResultVOUtil.error(ResultEnum.PRODUCT_UPDATE_FAIL);
+		} else {
+			return ResultVOUtil.success();
+		}
+	}
+	
+	@ApiOperation(value = "根据商品信息进行更新库存")
+	@PutMapping("updateStock")
+	public ResultVO updateStock(@RequestParam("proUuid")String proUuid, @RequestParam("number")double number) {
+		if (proUuid == null || "".equals(proUuid)) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_NOT_EXIST);
+		}
+		Product product = new Product();
+		product.setProUuid(proUuid);
+		product.setStock(number);
+		if (productService.updateStock(product) <1) {
+			return ResultVOUtil.error(ResultEnum.PRODUCT_STOCK_ERROR);
 		} else {
 			return ResultVOUtil.success();
 		}

@@ -13,4 +13,6 @@ public interface ProductService {
 	Product save(Product bean);
 	Product update(Product bean);
 	void delete(String... id);
+	/*更新商品库存*/
+	Integer updateStock(Product product);
 }
