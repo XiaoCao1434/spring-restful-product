@@ -45,4 +45,9 @@ public class ProductBrandServiceImpl implements ProductBrandService {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public Page<ProductBrand> findAllByPcUuid(String pcUuid, Pageable pageable) {
+		return repository.findAllByPcUuid(pcUuid,pageable);
+	}
 }

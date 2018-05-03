@@ -50,6 +50,16 @@ public class ProductBrandController {
 		return ResultVOUtil.success(page);
 	}
 
+	@ApiOperation(value = "根据商品类别ID和分页信息获取商品类别下的品牌分页")
+	@GetMapping("category/{pcUuid}")
+	public ResultVO findAllByPcUuid(@PathVariable("pcUuid") String pcUuid,
+			@RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+			@RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
+		PageRequest request = new PageRequest(pageNo - 1, pageSize);
+		Page<ProductBrand> page = productBrandService.findAllByPcUuid(pcUuid, request);
+		return ResultVOUtil.success(page);
+	}
+
 	@ApiOperation(value = "根据品牌信息更新")
 	@PutMapping
 	public ResultVO update(ProductBrand productBrand) {

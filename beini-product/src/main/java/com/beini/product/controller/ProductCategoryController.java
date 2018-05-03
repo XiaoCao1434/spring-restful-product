@@ -45,6 +45,17 @@ public class ProductCategoryController {
 		Page<ProductCategory> page = productCategoryService.findAll(request);
 		return ResultVOUtil.success(page);
 	}
+	
+	@ApiOperation(value="根据父ID和分页信息获取所属父商品类别的类别分页信息")
+	@GetMapping("p/{pid}")
+	public ResultVO findPageByPcPpuid(
+			@PathVariable("pid")String pid,
+			@RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+			@RequestParam(name = "pageSize", required = false, defaultValue = "20") Integer pageSize) {
+		PageRequest request = new PageRequest(pageNo - 1, pageSize);
+		Page<ProductCategory> page = productCategoryService.findPageByPcPpuid(pid,request);
+		return ResultVOUtil.success(page);
+	}
 	@ApiOperation(value="根据商品类别信息进行数据更新(以主键为依据)")
 	@PutMapping
 	public ResultVO update(ProductCategory productCategory) {
